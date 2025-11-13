@@ -1,63 +1,54 @@
-/* Theme tokens */
-:root {
-  --bg: #ffffff;
-  --fg: #0a0a0a;
-  --muted: #6b7280;
-  --card: #ffffff;
-  --border: #e5e7eb;
-  --shadow: 0 1px 2px rgba(0,0,0,0.05);
-  color-scheme: light dark;
+:root{
+  --bg:#0b0c10; --fg:#e7e9ee; --muted:#a7adbb;
+  --card:#0f1116; --border:#1b1f2a; --shadow:0 10px 30px rgba(0,0,0,.25);
+  --accent:#6ee7ff; --accent2:#a78bfa;
+  color-scheme: dark;
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0b0b0f;
-    --fg: #e5e7eb;
-    --muted: #9ca3af;
-    --card: #0f1015;
-    --border: #1f2937;
-    --shadow: 0 1px 2px rgba(0,0,0,0.3);
-  }
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
+a{color:inherit;text-decoration:none}
+
+.container{max-width:1040px;margin:0 auto;padding:0 20px}
+.section{padding:56px 0;border-top:1px solid var(--border)}
+.footer{padding:32px 0;border-top:1px solid var(--border);font-size:.95rem}
+.h2{font-size:clamp(1.4rem,2.4vw,1.8rem);font-weight:700;margin:0 0 1rem}
+.muted{color:var(--muted)}
+.grid{display:grid;gap:16px}
+@media (min-width:768px){.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.badge{display:inline-block;padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:#0e1118;font-size:.85rem}
+.card{background:linear-gradient(180deg,#0f131b,#0c0f15);border:1px solid var(--border);border-radius:16px;padding:18px;box-shadow:var(--shadow);transition:transform .15s ease,border-color .2s ease}
+.card:hover{transform:translateY(-2px);border-color:#283045}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:10px;font-weight:600;border:1px solid #253247;background:#121826;cursor:pointer;transition:transform .1s ease,border-color .2s ease}
+.btn:hover{transform:translateY(-1px);border-color:#33415d}
+.btn-accent{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#0a0a0a;border-color:transparent}
+
+/* --- Shell layout --- */
+.shell{display:grid;grid-template-columns:300px 1fr;min-height:100vh}
+@media (max-width:980px){.shell{grid-template-columns:1fr}}
+.content{position:relative;overflow:hidden}
+.content::before{
+  content:""; position:absolute; inset:auto -20% 0 -20%; height:260px;
+  background:
+    radial-gradient(ellipse at top, rgba(110,231,255,.18), transparent 55%),
+    radial-gradient(ellipse at top right, rgba(167,139,250,.16), transparent 50%);
+  filter:blur(32px); pointer-events:none;
 }
+html, body { scroll-behavior:smooth }
+section[id]{scroll-margin-top:24px}
 
-* { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
-body {
-  background: var(--bg);
-  color: var(--fg);
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+/* --- Sidebar --- */
+.sidebar{
+  position:sticky; top:0; height:100vh; border-right:1px solid var(--border);
+  background: #0a0d13; display:flex; align-items:flex-start; justify-content:center;
 }
-
-/* Layout helpers */
-.container { max-width: 1000px; margin: 0 auto; padding: 0 16px; }
-.section { padding: 40px 0; border-top: 1px solid var(--border); }
-.footer { padding: 32px 0; border-top: 1px solid var(--border); font-size: .95rem; }
-
-.h1 { font-size: 2.25rem; font-weight: 800; letter-spacing: -0.02em; margin: 0; }
-.h2 { font-size: 1.5rem; font-weight: 700; margin: 0 0 1rem; }
-.muted { color: var(--muted); }
-.mt-2 { margin-top: .5rem; }
-.mt-4 { margin-top: 1rem; }
-.mt-6 { margin-top: 1.5rem; }
-.py-hero { padding: 56px 0; }
-
-.grid { display: grid; gap: 16px; }
-@media (min-width: 768px) { .grid-2 { grid-template-columns: repeat(2, minmax(0,1fr)); } }
-
-.badge {
-  display: inline-block; padding: 6px 10px; border-radius: 999px;
-  border: 1px solid var(--border); background: color-mix(in srgb, var(--card) 85%, var(--fg) 15%);
-  font-size: .85rem;
+@media (max-width:980px){
+  .sidebar{position:static;height:auto;border-right:none;border-bottom:1px solid var(--border)}
 }
-
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 16px;
-  box-shadow: var(--shadow);
-  transition: box-shadow .15s ease, transform .05s ease;
-}
-.card:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.08); transform: translateY(-1px); }
-
-a { color: inherit; }
-a.underline { text-decoration: underline; text-underline-offset: 3px; }
+.sidebar-inner{padding:28px 18px; width:100%; max-width:280px}
+.sidebar-avatar{width:112px;height:112px;border-radius:999px;border:2px solid #1f2735;box-shadow:0 10px 28px rgba(0,0,0,.45)}
+.sidebar-name{margin:16px 0 6px;font-size:1.4rem;font-weight:800;letter-spacing:.2px}
+.sidebar-role{margin:0 0 14px;color:var(--muted)}
+.sidebar-links{display:flex;flex-direction:column;gap:8px;margin:12px 0 18px}
+.sidebar-links a{color:var(--muted)}
+.sidebar-links a:hover{color:var(--fg)}
+.sidebar-cta{margin-top:8px}
