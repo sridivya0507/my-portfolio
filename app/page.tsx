@@ -60,7 +60,7 @@ export default function Page() {
           <div className="hero-photo-wrap">
             <div className="hero-outline" />
             <img
-              src="/profile.jpg"
+              src="/image.jpg"
               alt="Sridivya"
               className="hero-photo"
             />
