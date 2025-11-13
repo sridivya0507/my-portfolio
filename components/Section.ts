@@ -1,7 +1,13 @@
 // components/Section.tsx
-import { ReactNode } from "react";
+import { ReactNode } from "react";   // ✅ important import!
 
-export default function Section({ title, children }: { title: string; children: ReactNode }) {
+export default function Section({
+  title,
+  children,
+}: {
+  title: string;
+  children: ReactNode;
+}) {
   return (
     <section className="section">
       <div className="container">
