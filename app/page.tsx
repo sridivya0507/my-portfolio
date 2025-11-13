@@ -1,102 +1,85 @@
+import Sidebar from "@/components/Sidebar";
 import Section from "@/components/Section";
 import Card from "@/components/Card";
 import { profile } from "./content";
-import Sidebar from "@/components/Sidebar";
 
 export default function Page() {
   return (
     <main className="shell">
       <Sidebar />
+
       <div className="content">
-        {/* About */}
-        <section id="about" className="section">
-          <div className="container">
-            <h2 className="h2">About</h2>
-            <p className="muted" style={{ maxWidth: 820, marginTop: 12 }}>
-              {profile.summary}
-            </p>
-          </div>
-        </section>
+        {/* Decorative gradient glow */}
+        <div className="bg-glow" />
 
-        {/* Skills */}
-        <section id="skills" className="section">
-          <div className="container">
-            <h2 className="h2">Skills</h2>
-            <Card>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-                {profile.skills.map((s) => <span key={s} className="badge">{s}</span>)}
-              </div>
-            </Card>
+        <Section id="about" title="About">
+          <p className="muted" style={{ maxWidth: 820 }}>{profile.summary}</p>
+          <div style={{ display:"flex", gap:12, flexWrap:"wrap" }}>
+            <a className="btn btn-accent" href="#projects">View Projects</a>
+            <a className="btn" href={`mailto:${profile.email}`}>Contact</a>
+            <a className="btn" href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
           </div>
-        </section>
+        </Section>
 
-        {/* Projects */}
-        <section id="projects" className="section">
-          <div className="container">
-            <h2 className="h2">Projects</h2>
-            <div className="grid grid-2">
-              {profile.projects.map((p, i) => (
-                <Card key={i}>
-                  <h3 style={{ fontWeight: 700 }}>{p.name}</h3>
-                  <p className="muted" style={{ marginTop: 6 }}>{p.desc}</p>
-                  {p.link && (
-                    <a href={p.link} target="_blank" className="btn" style={{ marginTop: 12 }}>
-                      View Repository
-                    </a>
-                  )}
-                </Card>
-              ))}
+        <Section id="skills" title="Skills">
+          <Card>
+            <div style={{ display:"flex", flexWrap:"wrap", gap:"8px" }}>
+              {profile.skills.map((s) => <span key={s} className="badge">{s}</span>)}
             </div>
-          </div>
-        </section>
+          </Card>
+        </Section>
 
-        {/* Experience */}
-        <section id="experience" className="section">
-          <div className="container">
-            <h2 className="h2">Experience</h2>
-            {profile.experience.map((e, idx) => (
-              <Card key={idx}>
-                <h3 style={{ fontWeight: 600 }}>{e.role}</h3>
-                <p className="muted" style={{ fontSize: ".95rem" }}>
-                  {e.company} • {e.location}
-                </p>
-                <ul style={{ marginTop: 12, paddingLeft: 18, lineHeight: 1.6 }}>
-                  {e.bullets.map((b, i) => <li key={i}>{b}</li>)}
-                </ul>
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        {/* Education */}
-        <section id="education" className="section">
-          <div className="container">
-            <h2 className="h2">Education</h2>
-            {profile.education.map((ed, i) => (
+        <Section id="projects" title="Projects">
+          <div className="grid grid-2">
+            {profile.projects.map((p, i) => (
               <Card key={i}>
-                <div style={{ display: "flex", gap: 8, justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" }}>
-                  <h3 style={{ fontWeight: 600 }}>{ed.school}</h3>
-                  <span className="muted" style={{ fontSize: ".95rem" }}>{ed.gpa}</span>
-                </div>
-                <p style={{ marginTop: 6 }}>{ed.degree}</p>
+                <h3 style={{ fontWeight: 700 }}>{p.name}</h3>
+                <p className="muted" style={{ marginTop: 6 }}>{p.desc}</p>
+                {p.link && (
+                  <a className="btn" href={p.link} target="_blank" rel="noreferrer" style={{ marginTop: 10 }}>
+                    View Repository
+                  </a>
+                )}
               </Card>
             ))}
           </div>
-        </section>
+        </Section>
 
-        {/* Contact */}
-        <section id="contact" className="section">
-          <div className="container">
-            <h2 className="h2">Contact</h2>
-            <Card>
-              <p className="muted">Email me or reach out on LinkedIn.</p>
-              <div style={{ display:"flex", gap:12, marginTop:12, flexWrap:"wrap" }}>
-                <a className="btn btn-accent" href={`mailto:${profile.email}`}>Email</a>
-                <a className="btn" href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
-              </div>
+        <Section id="experience" title="Experience">
+          {profile.experience.map((e, idx) => (
+            <Card key={idx}>
+              <h3 style={{ fontWeight: 600 }}>{e.role}</h3>
+              <p className="muted" style={{ fontSize: ".95rem" }}>
+                {e.company} • {e.location}
+              </p>
+              <ul style={{ marginTop: 12, paddingLeft: 18, lineHeight: 1.6 }}>
+                {e.bullets.map((b, i) => <li key={i}>{b}</li>)}
+              </ul>
             </Card>
-          </div>
-        </section>
+          ))}
+        </Section>
+
+        <Section id="education" title="Education">
+          {profile.education.map((ed, i) => (
+            <Card key={i}>
+              <div style={{ display:"flex", gap:8, justifyContent:"space-between", alignItems:"center", flexWrap:"wrap" }}>
+                <h3 style={{ fontWeight: 600 }}>{ed.school}</h3>
+                <span className="muted" style={{ fontSize: ".95rem" }}>{ed.gpa}</span>
+              </div>
+              <p style={{ marginTop: 6 }}>{ed.degree}</p>
+            </Card>
+          ))}
+        </Section>
+
+        <Section id="contact" title="Contact">
+          <Card>
+            <p className="muted">Email me or reach out on LinkedIn.</p>
+            <div style={{ display:"flex", gap:12, marginTop:12, flexWrap:"wrap" }}>
+              <a className="btn btn-accent" href={`mailto:${profile.email}`}>Email</a>
+              <a className="btn" href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+            </div>
+          </Card>
+        </Section>
 
         <footer className="footer">
           <div className="container">© {new Date().getFullYear()} {profile.name}. All rights reserved.</div>
