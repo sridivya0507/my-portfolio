@@ -1,106 +1,107 @@
-// app/page.tsx
 import Section from "@/components/Section";
 import Card from "@/components/Card";
 import { profile } from "./content";
+import Sidebar from "@/components/Sidebar";
 
 export default function Page() {
   return (
-    <main>
-      {/* Hero */}
-      <header style={{ borderBottom: "1px solid var(--border)" }}>
-        <div className="container py-hero">
-          <h1 className="h1">{profile.name}</h1>
-          <p className="mt-2 muted">{profile.title}</p>
-
-          <div className="mt-4" style={{ fontSize: ".95rem" }}>
-            <a className="underline" href={`mailto:${profile.email}`}>{profile.email}</a>
-            {" • "}{profile.location}{" • "}{profile.phone}{" • "}
-            <a className="underline" href={profile.linkedin} target="_blank">LinkedIn</a>
+    <main className="shell">
+      <Sidebar />
+      <div className="content">
+        {/* About */}
+        <section id="about" className="section">
+          <div className="container">
+            <h2 className="h2">About</h2>
+            <p className="muted" style={{ maxWidth: 820, marginTop: 12 }}>
+              {profile.summary}
+            </p>
           </div>
+        </section>
 
-          <p className="mt-6" style={{ maxWidth: 720 }}>{profile.summary}</p>
-        </div>
-      </header>
+        {/* Skills */}
+        <section id="skills" className="section">
+          <div className="container">
+            <h2 className="h2">Skills</h2>
+            <Card>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+                {profile.skills.map((s) => <span key={s} className="badge">{s}</span>)}
+              </div>
+            </Card>
+          </div>
+        </section>
 
-      {/* Skills */}
-      <Section title="Skills">
-        <Card>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-            {profile.skills.map((s) => (
-              <span key={s} className="badge">{s}</span>
+        {/* Projects */}
+        <section id="projects" className="section">
+          <div className="container">
+            <h2 className="h2">Projects</h2>
+            <div className="grid grid-2">
+              {profile.projects.map((p, i) => (
+                <Card key={i}>
+                  <h3 style={{ fontWeight: 700 }}>{p.name}</h3>
+                  <p className="muted" style={{ marginTop: 6 }}>{p.desc}</p>
+                  {p.link && (
+                    <a href={p.link} target="_blank" className="btn" style={{ marginTop: 12 }}>
+                      View Repository
+                    </a>
+                  )}
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Experience */}
+        <section id="experience" className="section">
+          <div className="container">
+            <h2 className="h2">Experience</h2>
+            {profile.experience.map((e, idx) => (
+              <Card key={idx}>
+                <h3 style={{ fontWeight: 600 }}>{e.role}</h3>
+                <p className="muted" style={{ fontSize: ".95rem" }}>
+                  {e.company} • {e.location}
+                </p>
+                <ul style={{ marginTop: 12, paddingLeft: 18, lineHeight: 1.6 }}>
+                  {e.bullets.map((b, i) => <li key={i}>{b}</li>)}
+                </ul>
+              </Card>
             ))}
           </div>
-        </Card>
-      </Section>
+        </section>
 
-      {/* Experience */}
-      <Section title="Experience">
-        {profile.experience.map((e, idx) => (
-          <Card key={idx}>
-            <h3 style={{ fontWeight: 600 }}>{e.role}</h3>
-            <p className="muted" style={{ fontSize: ".95rem" }}>
-              {e.company} • {e.location}
-            </p>
-            <ul style={{ marginTop: 12, paddingLeft: 18, lineHeight: 1.6 }}>
-              {e.bullets.map((b, i) => <li key={i}>{b}</li>)}
-            </ul>
-          </Card>
-        ))}
-      </Section>
+        {/* Education */}
+        <section id="education" className="section">
+          <div className="container">
+            <h2 className="h2">Education</h2>
+            {profile.education.map((ed, i) => (
+              <Card key={i}>
+                <div style={{ display: "flex", gap: 8, justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" }}>
+                  <h3 style={{ fontWeight: 600 }}>{ed.school}</h3>
+                  <span className="muted" style={{ fontSize: ".95rem" }}>{ed.gpa}</span>
+                </div>
+                <p style={{ marginTop: 6 }}>{ed.degree}</p>
+              </Card>
+            ))}
+          </div>
+        </section>
 
-      {/* Projects */}
-      <Section title="Projects">
-        <div className="grid grid-2">
-          {profile.projects.map((p, i) => (
-            <Card key={i}>
-              <h3 style={{ fontWeight: 600 }}>{p.name}</h3>
-              <p className="muted" style={{ marginTop: 6, fontSize: ".95rem" }}>{p.desc}</p>
-              {p.link && (
-                <a href={p.link} target="_blank" className="underline" style={{ display: "inline-block", marginTop: 10 }}>
-                  View repository
-                </a>
-              )}
+        {/* Contact */}
+        <section id="contact" className="section">
+          <div className="container">
+            <h2 className="h2">Contact</h2>
+            <Card>
+              <p className="muted">Email me or reach out on LinkedIn.</p>
+              <div style={{ display:"flex", gap:12, marginTop:12, flexWrap:"wrap" }}>
+                <a className="btn btn-accent" href={`mailto:${profile.email}`}>Email</a>
+                <a className="btn" href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+              </div>
             </Card>
-          ))}
-        </div>
-      </Section>
+          </div>
+        </section>
 
-      {/* Education */}
-      <Section title="Education">
-        {profile.education.map((ed, i) => (
-          <Card key={i}>
-            <div style={{ display: "flex", gap: 8, justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" }}>
-              <h3 style={{ fontWeight: 600 }}>{ed.school}</h3>
-              <span className="muted" style={{ fontSize: ".95rem" }}>{ed.gpa}</span>
-            </div>
-            <p style={{ marginTop: 6 }}>{ed.degree}</p>
-          </Card>
-        ))}
-      </Section>
-
-      {/* Certifications & Awards */}
-      <Section title="Certifications">
-        <Card>
-          <ul style={{ paddingLeft: 18, lineHeight: 1.6 }}>
-            {profile.certifications.map((c, i) => <li key={i}>{c}</li>)}
-          </ul>
-        </Card>
-      </Section>
-
-      <Section title="Awards">
-        <Card>
-          <ul style={{ paddingLeft: 18, lineHeight: 1.6 }}>
-            {profile.awards.map((a, i) => <li key={i}>{a}</li>)}
-          </ul>
-        </Card>
-      </Section>
-
-      {/* Footer */}
-      <footer className="footer">
-        <div className="container">
-          © {new Date().getFullYear()} {profile.name}. All rights reserved.
-        </div>
-      </footer>
+        <footer className="footer">
+          <div className="container">© {new Date().getFullYear()} {profile.name}. All rights reserved.</div>
+        </footer>
+      </div>
     </main>
   );
 }
