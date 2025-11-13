@@ -1,15 +1,17 @@
 // components/Section.tsx
-import { ReactNode } from "react";   // ✅ important import!
+import { ReactNode } from "react";
 
 export default function Section({
+  id,
   title,
   children,
 }: {
+  id: string;
   title: string;
   children: ReactNode;
 }) {
   return (
-    <section className="section">
+    <section id={id} className="section">
       <div className="container">
         <h2 className="h2">{title}</h2>
         <div style={{ display: "grid", gap: "12px" }}>{children}</div>
